@@ -32,10 +32,11 @@ export default class Signin extends React.Component{
             firebase.auth().currentUser.updateProfile({
                 displayName: this.state.name
             })
-            firebase.batabase().ref('USERS/'+firebase.auth().currentUser.uid).set({
+            firebase.database().ref('USERS/'+firebase.auth().currentUser.uid).set({
                 name:this.state.name,
                 email:this.state.email,
-                password:this.state.pass
+                password:this.state.pass,
+                type:'user'
             })
         }).catch(function(error) {
             alert(error.message)
@@ -93,12 +94,12 @@ export default class Signin extends React.Component{
                         <RaisedButton label="Create Account" primary={true} type="submit"/>
                         <RaisedButton label="All Ready A Account" onClick={() => {
                             this.props.history.push('/signin')
-                        }} default={true} type="submit"/>
+                        }} default={true}/>
                     </ValidatorForm>
                 :
-                    <div>loggeg in</div>
+                    this.props.history.push('/user')
                 }
-                    {/*this.props.history.push('/user')*/}
+                    {/*<div>loggeg in</div>*/}
             </div>
         )
     }

@@ -1,7 +1,7 @@
 import React from 'react'
-import {RaisedButton} from 'material-ui'
 import Loader from './Loader'
 import * as firebase from 'firebase'
+import {RaisedButton} from 'material-ui'
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 export default class Signin extends React.Component{
@@ -18,11 +18,11 @@ export default class Signin extends React.Component{
     }
     componentDidMount(){
         firebase.auth().onAuthStateChanged(() => {
+            this.setState({
+                user: firebase.auth().currentUser,
+                loading: false
+            })
             setTimeout(() => {
-                this.setState({
-                    user: firebase.auth().currentUser,
-                    loading: false
-                })
                 if(this.state.user) this.props.history.push('/user')
             },5)
         })
@@ -74,7 +74,7 @@ export default class Signin extends React.Component{
                         <RaisedButton label="Login" primary={true} type="submit"/>
                         <RaisedButton label="Not A Account" onClick={() => {
                             this.props.history.push('/signup')
-                        }} default={true} type="submit"/>
+                        }} default={true} />
 
                     </ValidatorForm>
                 }
